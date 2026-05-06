@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Borrar dispositivo{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>Borrar dispositivo</h1>
+  <p>¿Seguro que quieres borrar {{ object }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="button danger" type="submit">Sí, borrar</button>
+    <a class="button secondary" href="{% url 'devices:list' %}">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

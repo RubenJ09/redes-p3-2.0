@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Sistema Domótico IoT{% endblock %}</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f4ef;
+      --panel: #ffffff;
+      --text: #1d2433;
+      --muted: #5f6a7a;
+      --accent: #0d6efd;
+      --border: #d9dee8;
+    }
+    body { margin: 0; font-family: Arial, sans-serif; background: linear-gradient(180deg, #f8fafc, var(--bg)); color: var(--text); }
+    header { padding: 1.25rem 1.5rem; background: #172033; color: white; }
+    nav a { color: white; margin-right: 1rem; text-decoration: none; }
+    main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06); }
+    .title-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .actions a, .actions button { display: inline-block; margin-right: 0.5rem; margin-top: 0.4rem; }
+    .button { background: var(--accent); color: white; padding: 0.65rem 1rem; border-radius: 10px; text-decoration: none; border: 0; cursor: pointer; }
+    .button.secondary { background: #64748b; }
+    .button.danger { background: #c0392b; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; border-bottom: 1px solid var(--border); padding: 0.75rem; vertical-align: top; }
+    tbody tr:hover { background: #f8fbff; }
+    label { display: block; margin-top: 0.85rem; font-weight: 700; }
+    input, select, textarea { width: 100%; padding: 0.7rem; margin-top: 0.35rem; box-sizing: border-box; border: 1px solid var(--border); border-radius: 10px; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid #93c5fd; outline-offset: 1px; }
+    .messages { list-style: none; padding: 0; }
+    .messages li { background: #eef7ff; border: 1px solid #bcdcff; padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 0.5rem; }
+    .hint { color: var(--muted); }
+    .mono { font-family: Consolas, "Courier New", monospace; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Sistema Domótico IoT</strong>
+    <nav>
+      <a href="{% url 'devices:list' %}">Dispositivos</a>
+      <a href="{% url 'rules:list' %}">Reglas</a>
+      <a href="{% url 'events:list' %}">Eventos</a>
+    </nav>
+  </header>
+  <main>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Eventos{% endblock %}
+{% block content %}
+<div class="panel">
+  <div class="title-row">
+    <h1>Eventos</h1>
+  </div>
+  <p class="hint">Histórico de eventos internos generados por el controller.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha/Hora</th>
+        <th>Dispositivo</th>
+        <th>Valor Recibido</th>
+        <th>Descripción / Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+      <tr>
+        <td>{{ event.timestamp }}</td>
+        <td>{{ event.device }}</td>
+        <td>{{ event.value }}</td>
+        <td>{{ event.description|default:'-' }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">No hay eventos todavía.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

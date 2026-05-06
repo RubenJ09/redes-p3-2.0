@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Dispositivos{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>Dispositivos</h1>
+  <p class="hint">Gestiona dispositivos IoT registrados en el sistema.</p>
+  <div class="actions">
+    <a class="button" href="{% url 'devices:create' %}">Nuevo dispositivo</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Topic</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for device in devices %}
+      <tr>
+        <td>{{ device.device_id }}</td>
+        <td>{{ device.name }}</td>
+        <td>{{ device.get_device_type_display }}</td>
+        <td>{{ device.topic }}</td>
+        <td>{{ device.current_state|default:'-' }}</td>
+        <td>
+          <a href="{% url 'devices:edit' device.pk %}">Editar</a>
+          |
+          <a href="{% url 'devices:delete' device.pk %}">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">No hay dispositivos todavía.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

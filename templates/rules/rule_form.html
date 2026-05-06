@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Regla{% endblock %}
+{% block content %}
+<div class="panel">
+  <h1>{% if object %}Editar{% else %}Crear{% endif %} regla</h1>
+  <p class="hint">Formato: <span class="mono">si sensor_salon mayor que 25 entonces switch_caldera OFF</span></p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {{ field.errors }}
+    {% endfor %}
+    <div class="actions" style="margin-top:1rem;">
+      <button class="button" type="submit">Guardar</button>
+      <a class="button secondary" href="{% url 'rules:list' %}">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

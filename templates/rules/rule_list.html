@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Reglas{% endblock %}
+{% block content %}
+<div class="panel">
+  <div class="title-row">
+    <h1>Reglas</h1>
+  </div>
+  <p class="hint">Define reglas dado-cuando-entonces con operadores <span class="mono">==</span>, <span class="mono">&gt;</span> y <span class="mono">&lt;</span>.</p>
+  <div class="actions">
+    <a class="button" href="{% url 'rules:create' %}">Nueva regla</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Texto</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rule in rules %}
+      <tr>
+        <td>{{ rule.raw_text }}</td>
+        <td>{{ rule.enabled|yesno:'Activa,Inactiva' }}</td>
+        <td>
+          <a href="{% url 'rules:edit' rule.pk %}">Editar</a>
+          |
+          <a href="{% url 'rules:delete' rule.pk %}">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3">No hay reglas todavía.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
